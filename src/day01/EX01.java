@@ -1,3 +1,5 @@
+package day01;
+
 public class EX01 {
     // 점수를 받는 변수, 87점
     // 90점 이상 : "A"

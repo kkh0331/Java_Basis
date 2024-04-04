@@ -1,3 +1,5 @@
+package day01;
+
 public class EX02 {
     // num 변수의 값이 9면 "A"
     // 8이면 "B"
