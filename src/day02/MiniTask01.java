@@ -34,8 +34,8 @@ public class MiniTask01 {
         store.addPhone(applePhone, 1);
 
         // 사람 생성
-        Person sawny = new Person("쏘니");
-        Person beckham = new Person("베컴");
+        Person sawny = new Person("쏘니", "kr");
+        Person beckham = new Person("베컴", "en");
 
         // 휴대폰 구매
         sawny.buyPhone(store, samsungPhone);
@@ -52,7 +52,13 @@ public class MiniTask01 {
 class Person{
 
     private String name;
+    private String nation;
     private Phone phone;
+
+    Person(String name, String nation){
+        this.name = name;
+        this.nation = nation;
+    }
 
     Person(String name){
         this.name = name;
@@ -72,6 +78,13 @@ class Person{
         } else if(phone.getIsTurnOn()){
             System.out.printf("%s's phone is already turned on", name);
             return;
+        }
+        if(nation.equals("kr")){
+            System.out.println("야 내 핸드폰 켜볼게");
+        } else if(nation.equals("en")){
+            System.out.println("turn on");
+        } else {
+            System.out.println("국적 미상");
         }
         phone.turnOn();
     }
@@ -99,7 +112,6 @@ class Phone{
 class SamsungPhone extends Phone{
     void turnOn(){
         super.turnOn();
-        System.out.println("야 내 핸드폰 켜볼게");
         System.out.println("삐비빅");
     }
 }
@@ -107,7 +119,6 @@ class SamsungPhone extends Phone{
 class ApplePhone extends Phone{
     void turnOn(){
         super.turnOn();
-        System.out.println("turn on");
         System.out.println("bbeep");
     }
 }
