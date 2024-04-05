@@ -49,6 +49,10 @@ public class MiniTask01 {
     }
 }
 
+enum Brand {
+    SAMSUNG, APPLE
+}
+
 class Person{
 
     private String name;
@@ -91,60 +95,82 @@ class Person{
 
 }
 
-class Phone{
+abstract class Phone{
 
     private boolean isTurnOn;
+    private Brand brand;
 
-    Phone(){
+    Phone(Brand brand){
         this.isTurnOn = false;
+        this.brand = brand;
     }
 
     boolean getIsTurnOn(){
         return isTurnOn;
     }
 
+    Brand getBrand(){
+        return brand;
+    }
+
+    abstract void openSound();
+
     void turnOn(){
         isTurnOn = true;
+        openSound();
     }
 
 }
 
 class SamsungPhone extends Phone{
-    void turnOn(){
-        super.turnOn();
+
+    SamsungPhone(){
+        super(Brand.SAMSUNG);
+    }
+
+    @Override
+    void openSound(){
         System.out.println("삐비빅");
     }
+
 }
 
 class ApplePhone extends Phone{
-    void turnOn(){
-        super.turnOn();
+
+    ApplePhone(){
+        super(Brand.APPLE);
+    }
+
+    @Override
+    void openSound(){
         System.out.println("bbeep");
     }
 }
 
 class Store{
     // 상점 내에 핸드폰을 저장하고 있어야 함...
-    Map<Phone, Integer> phones; // phone 종류, 개수
+    Map<Brand, Integer> phones; // phone 종류, 개수
 
     Store(){
         phones = new HashMap<>();
     }
 
     void addPhone(Phone phone, int count){
-        if(phones.containsKey(phone)){
-            phones.replace(phone, phones.get(phone) + count);
+        Brand phoneBrand = phone.getBrand();
+        if(phones.containsKey(phoneBrand)){
+            phones.replace(phoneBrand, phones.get(phoneBrand) + count);
         } else {
-            phones.put(phone, count);
+            phones.put(phoneBrand, count);
         }
     }
 
     boolean isPhone(Phone phone){
-        if(phones.containsKey(phone)){
-            if(phones.get(phone) == 1){
-                phones.remove(phone);
+        Brand phoneBrand = phone.getBrand();
+        if(phones.containsKey(phoneBrand)){
+            if(phones.get(phoneBrand) == 1){
+                phones.remove(phoneBrand);
             } else {
-                phones.replace(phone, phones.get(phone) - 1);
+                phones.replace(phoneBrand, phones.get(phoneBrand) - 1);
             }
             return true;
         }
